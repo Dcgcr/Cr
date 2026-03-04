@@ -1,0 +1,212 @@
+/* Global layout: one-screen, touch-friendly */
+:root{
+  --bg: #ffffff;
+  --accent: #111;
+  --muted: #f6f6f6;
+  --gap: 12px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;touch-action:manipulation}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:50;transition:opacity .28s ease}
+#splash.hidden{opacity:0;pointer-events:none;visibility:hidden}
+
+/* App container scrolls to allow results/menu content to scroll */
+#app{position:relative;min-height:100vh;display:block;overflow:auto;padding-bottom:78px}
+
+/* Fixed 9:1 bottom bar wrapper */
+.bottom-bar{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:18px;
+  width:90vw;
+  max-width:720px;
+  aspect-ratio:9/1;
+  background:var(--bg);
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 14px;
+  gap:12px;
+  z-index:80;
+  border:1px solid rgba(0,0,0,0.04);
+}
+
+.bar-seg{
+  flex:1 1 0;
+  background:transparent;
+  border:0;
+  color:var(--accent);
+  font-size:16px;
+  padding:8px;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border-radius:8px;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.bar-divider{
+  width:1px;
+  text-align:center;
+  color:rgba(0,0,0,0.28);
+  font-weight:600;
+  user-select:none;
+  pointer-events:none;
+  padding:0 10px;
+}
+
+/* Menu overlay */
+#menuOverlay{z-index:70}
+@media (max-height:560px){
+  .bottom-bar{width:94vw;bottom:12px}
+  .bar-seg{padding:6px;font-size:15px}
+  #app{padding-bottom:64px}
+}
+#menuOverlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:18px;
+  background:transparent;
+  z-index:60;
+  pointer-events:none;
+}
+
+/* Scrollable container that holds one or more 8:7 boxes */
+.menu-scroll{
+  width:100%;
+  max-width:560px;
+  max-height:calc(100vh - 36px);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:center;
+  padding:6px;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  pointer-events:auto;
+  opacity:0;
+  transform:translateY(-6px);
+  transition:opacity .18s ease,transform .18s ease;
+}
+#menuOverlay.show .menu-scroll{opacity:1;transform:translateY(0)}
+
+/* The 8:7 rectangular box */
+.menu-box{
+  background:var(--muted);
+  border:1px solid rgba(0,0,0,0.06);
+  width:78vw;
+  max-width:520px;
+  aspect-ratio:8/7;
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  display:flex;
+  flex-direction:column;
+  gap:var(--gap);
+  padding:12px;
+  transform:scale(.98);
+  opacity:1;
+  transition:transform .18s ease, opacity .18s ease, filter .18s ease;
+  cursor:pointer;
+}
+
+/* Disabled state to prevent interaction when results are shown */
+.menu-box.disabled{
+  pointer-events:none;
+  opacity:0.92;
+  filter:grayscale(8%);
+  cursor:default;
+}
+#menuOverlay.show{pointer-events:auto}
+#menuOverlay.show .menu-box{transform:scale(1);opacity:1}
+
+/* Top 7:1 bar inside the menu box */
+.menu-box .top-bar{
+  background:#fff;
+  border-radius:8px;
+  width:100%;
+  aspect-ratio:7/1;
+  border:1px solid rgba(0,0,0,0.05);
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,0.02);
+}
+
+/* Two 4:5 boxes under the top bar */
+.content-row{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  justify-content:space-between;
+  width:100%;
+  flex:1 1 auto;
+  padding-top:4px;
+}
+.item-box{
+  background:#fff;
+  border-radius:8px;
+  flex:1 1 0;
+  aspect-ratio:4/5;
+  border:1px solid rgba(0,0,0,0.05);
+}
+
+/* Ensure product images fill the 4:5 boxes cleanly */
+.item-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  border-radius:8px;
+}
+
+/* Results view styling (white page background with top 9:1 header) */
+#resultsView{
+  position:relative;
+  width:100%;
+  max-width:720px;
+  margin:18px auto 80px;
+  padding:0 12px;
+  box-sizing:border-box;
+  z-index:40;
+}
+#resultsView .results-header{
+  width:100%;
+  aspect-ratio:9/1;
+  background:#fff;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  border:1px solid rgba(0,0,0,0.06);
+  box-shadow:0 6px 18px rgba(0,0,0,0.04);
+  margin-bottom:12px;
+}
+.results-title{
+  font-size:16px;
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* Grid: two columns of 4:6 cards, scrollable page will show more if needed */
+.results-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.result-card{
+  background:#fff;
+  border-radius:10px;
+  aspect-ratio:4/6;
+  border:1px solid rgba(0,0,0,0.06);
+  box-shadow:0 6px 18px rgba(0,0,0,0.03);
+}
+
+/* show/hide transitions */
+#resultsView{opacity:0;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease}
+#resultsView.show-results{opacity:1;transform:translateY(0)}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Dc Clothing Rack</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="splash" aria-hidden="true"></div>
+
+  <main id="app" aria-live="polite">
+    <div class="bottom-bar" role="navigation" aria-label="Bottom navigation">
+      <button id="menuBtn" class="bar-seg" aria-expanded="false" aria-label="Open menu">Menu</button>
+      <div class="bar-divider" aria-hidden="true">|</div>
+      <button id="listBtn" class="bar-seg" aria-label="My list">My List</button>
+    </div>
+
+    <div id="menuOverlay" role="dialog" aria-modal="true" hidden>
+      <!-- Scrollable menu content container holding two identical 8:7 menu boxes -->
+      <div id="menuContent" class="menu-scroll" role="group" aria-label="Menu content">
+        <div class="menu-box" role="group" aria-label="Menu box" data-title="Vintage Tops">
+          <div class="top-bar"><span class="top-title">Vintage Tops</span></div>
+          <div class="content-row">
+            <div class="item-box">
+              <img src="/Shirt1.jpg" alt="Vintage Top 1" />
+            </div>
+            <div class="item-box">
+              <img src="/Shirt2.jpeg" alt="Vintage Top 2" />
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-box" role="group" aria-label="Menu box duplicate" data-title="Trousers / Shorts">
+          <div class="top-bar"><span class="top-title">Trousers / Shorts</span></div>
+          <div class="content-row">
+            <div class="item-box">
+              <img src="/Trouser1.jpg" alt="Trousers 1" />
+            </div>
+            <div class="item-box">
+              <img src="/Trouser2.jpg" alt="Trousers 2" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results view: hidden until a menu-box is clicked -->
+    <div id="resultsView" hidden>
+      <div class="results-header">
+        <div class="results-title" id="resultsTitle">Showing results</div>
+      </div>
+
+      <div class="results-grid" id="resultsGrid" role="list">
+        <!-- result cards will be populated dynamically with VT#.jpg images -->
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
