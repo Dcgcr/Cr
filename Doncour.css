@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: white;
+}
+
+/* Splash */
+#splash {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: white;
+  z-index: 1000;
+}
+
+/* 9:1 Top bar */
+#topBar {
+  width: 100%;
+  height: 60px;
+  background: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  user-select: none;
+}
+
+/* Container */
+#container {
+  padding: 10px;
+}
+
+/* 9:9 card */
+.card {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 20px;
+  position: relative;
+  background: #eee;
+  overflow: hidden;
+}
+
+/* Image (stays above caption only) */
+.card img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+}
+
+/* 8:1 caption */
+.caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20%;
+  background: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+/* Upload page */
+#uploadPage {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: white;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+
+/* 5:5 box */
+#uploadBox {
+  width: 250px;
+  height: 250px;
+  border: 2px dashed black;
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 7:1 caption input */
+#captionInput {
+  width: 80%;
+  height: 40px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+/* Confirm */
+#confirmBtn {
+  margin-top: 20px;
+  padding: 10px;
+  display: none;
+}
